@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs><mask id="zk1" maskUnits="userSpaceOnUse" x="0" y="0" width="512" height="512">
+    <rect width="512" height="512" fill="#fff"/>
+    <path d="M426 20 C447.06 76.94 447.06 76.94 504 98 C447.06 119.06 447.06 119.06 426 176 C404.94 119.06 404.94 119.06 348 98 C404.94 76.94 404.94 76.94 426 20 Z" fill="#000" stroke="#000" stroke-width="28" stroke-linejoin="round"/>
+  </mask></defs>
+  <g mask="url(#zk1)">
+    <g fill="#4338E0" stroke="#4338E0" stroke-width="18" stroke-linejoin="round">
+      <rect x="48" y="64" width="400" height="368" rx="118"/>
+      <path d="M112 384 L78 480 L222 426 Z"/>
+    </g>
+    <path d="M164 172 H332 L164 324 H332" fill="none" stroke="#FFFFFF" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M426 20 C447.06 76.94 447.06 76.94 504 98 C447.06 119.06 447.06 119.06 426 176 C404.94 119.06 404.94 119.06 348 98 C404.94 76.94 404.94 76.94 426 20 Z" fill="#3DDC97"/>
+</svg>
