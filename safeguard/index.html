@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563EB'/%3E%3Cstop offset='1' stop-color='%2322D3EE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='41' font-family='monospace' font-size='24' font-weight='700' fill='white' text-anchor='middle'%3E%3C/%3E%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="SafeGuard · Controle de EPI e almoxarifado">
+<meta property="og:description" content="Controle de EPI com ficha NR-6 digital, assinatura no celular e almoxarifado completo. Sistemas sob medida para indústria.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A1120">
+<title>SafeGuard · Controle de EPI e almoxarifado | Dev Tecnologia</title>
+<meta name="description" content="SafeGuard, da Dev Tecnologia: controle de EPI com ficha NR-6 digital assinada no celular, prazo de troca e almoxarifado completo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: noite industrial. Faixas largas em sequência, conteúdo em coluna de 1160px, um único momento forte no topo (o título condensado com a ficha sendo assinada). */
+:root{
+  --bg:#0A1120; --bg-2:#0E172B; --panel:#121D35; --line:#22304F;
+  --fg:#E8EEF8; --fg-2:#9FB0CC; --fg-3:#6F81A1;
+  --blue:#2563EB; --cyan:#22D3EE; --ok:#34D399; --warn:#F59E0B;
+  --paper:#F5F7FB; --ink:#0F172A;
+  --f-display:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --grad:linear-gradient(100deg,var(--blue),var(--cyan));
+  --wrap:1160px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:clamp(2rem,4.4vw,3.1rem);font-weight:700}
+h3{font-size:1.3rem;font-weight:600;letter-spacing:0}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+.lead{color:var(--fg-2);font-size:1.12rem;max-width:62ch}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* topo */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:24px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:700;font-size:1.2rem;white-space:nowrap}
+.mark{font-family:var(--f-mono);font-weight:500;font-size:.95rem;display:grid;place-items:center;width:38px;height:38px;border-radius:9px;background:var(--grad);color:#fff}
+.brand small{display:block;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;color:var(--fg-3);font-weight:500;text-transform:uppercase}
+nav.links{display:flex;gap:22px;margin-left:auto}
+nav.links a{text-decoration:none;color:var(--fg-2);font-weight:500;font-size:.95rem}
+nav.links a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:.98rem;padding:12px 20px;border-radius:10px;border:1px solid transparent;cursor:pointer;font-family:var(--f-body);transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-main{background:var(--grad);color:#fff}
+.btn-ghost{border-color:var(--line);color:var(--fg);background:transparent}
+.btn-ghost:hover{background:var(--panel)}
+.top .btn{padding:9px 16px;font-size:.92rem}
+@media (max-width:820px){nav.links{display:none}.top .btn{margin-left:auto}}
+@media (max-width:420px){.top .btn span{display:none}}
+svg.i{width:18px;height:18px;flex:none}
+
+/* hero */
+.hero{padding-block:72px 40px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-30% -10% auto 40%;height:620px;background:radial-gradient(closest-side,color-mix(in srgb,var(--blue) 32%,transparent),transparent);pointer-events:none}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;position:relative}
+.hero h1{font-size:clamp(2.7rem,6.6vw,5.1rem);font-weight:700;margin-top:18px}
+.hero .lead{margin-top:20px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero .facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:30px;color:var(--fg-2);font-size:.92rem}
+.hero .facts span{display:inline-flex;align-items:center;gap:7px}
+.hero .facts svg{color:var(--ok)}
+.stage{position:relative;min-width:0;padding-bottom:30px}
+.frame{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--paper);box-shadow:0 30px 80px -30px rgba(0,0,0,.7)}
+.frame .bar{display:flex;gap:6px;align-items:center;padding:9px 12px;background:#E4E9F2}
+.frame .bar i{width:9px;height:9px;border-radius:50%;background:#C3CBD9}
+.frame .bar b{margin-left:10px;font:500 .72rem var(--f-mono);color:#5A6780}
+.frame img{display:block;width:100%}
+.phone{position:absolute;right:-6px;bottom:0;width:31%;max-width:190px;border-radius:22px;border:6px solid #1A2440;overflow:hidden;background:#fff;box-shadow:0 24px 60px -18px rgba(0,0,0,.8)}
+.phone img{display:block;width:100%}
+.stamp{position:absolute;left:-14px;bottom:8px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.82rem;box-shadow:0 18px 40px -16px rgba(0,0,0,.7)}
+.stamp b{display:block;font-family:var(--f-mono);font-weight:500;color:var(--cyan);letter-spacing:.06em}
+.stamp span{color:var(--fg-2)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.hero{padding-block:44px 24px}.stamp{left:8px}}
+
+/* faixas */
+section.band{padding-block:84px;border-top:1px solid var(--line)}
+section.band.alt{background:var(--bg-2)}
+.head{display:grid;gap:14px;margin-bottom:40px;max-width:760px}
+
+/* produto */
+.product-id{display:flex;align-items:center;gap:14px}
+.shield{width:46px;height:46px;flex:none}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.tabs button{font:600 .9rem var(--f-body);color:var(--fg-2);background:transparent;border:1px solid var(--line);padding:8px 14px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.viewer{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;align-items:start}
+.viewer .frame{max-height:620px;overflow:auto}
+.viewer .cap{min-width:0;display:grid;gap:14px;align-content:start}
+.viewer .cap h3{font-size:1.6rem}
+.viewer .cap p{color:var(--fg-2)}
+.viewer .cap ul{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.viewer .cap li{display:flex;gap:10px;color:var(--fg)}
+.viewer .cap li svg{color:var(--cyan);margin-top:4px}
+@media (max-width:860px){.viewer{grid-template-columns:1fr}.viewer .frame{max-height:460px}}
+
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:56px}
+.feat{background:var(--bg);padding:26px 24px;display:grid;gap:8px;align-content:start}
+.band.alt .feat{background:var(--bg-2)}
+.feat svg{width:24px;height:24px;color:var(--cyan)}
+.feat h3{margin-top:6px}
+.feat p{color:var(--fg-2);font-size:.95rem}
+@media (max-width:900px){.feats{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.feats{grid-template-columns:1fr}}
+
+/* segurança */
+.sec{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.sec-list{display:grid;gap:0;border-top:1px solid var(--line)}
+.sec-item{display:grid;grid-template-columns:40px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.sec-item svg{width:24px;height:24px;color:var(--ok);margin-top:2px}
+.sec-item p{color:var(--fg-2);font-size:.95rem;margin-top:4px}
+.proof{background:var(--paper);color:var(--ink);border-radius:12px;padding:22px;font-size:.9rem;box-shadow:0 30px 70px -30px rgba(0,0,0,.7)}
+.proof .t{font:600 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:#5A6780}
+.proof table{width:100%;border-collapse:collapse;margin-top:12px;font-variant-numeric:tabular-nums}
+.proof td{padding:9px 0;border-bottom:1px solid #DDE3EE;vertical-align:top}
+.proof td:first-child{color:#5A6780;width:42%}
+.proof code{font-family:var(--f-mono);font-weight:500;color:#1D4ED8;letter-spacing:.06em}
+.proof .sig{height:46px;margin-top:4px}
+.proof .ok{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-weight:600;color:#047857}
+@media (max-width:860px){.sec{grid-template-columns:1fr}}
+
+/* sob medida */
+.custom{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.c-card{border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:8px;align-content:start}
+.c-card p{color:var(--fg-2);font-size:.95rem}
+.c-card .eg{font-family:var(--f-mono);font-size:.78rem;color:var(--fg-3);margin-top:6px}
+@media (max-width:700px){.custom{grid-template-columns:1fr}}
+
+/* implantação */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s}
+.step{display:grid;gap:8px;align-content:start;border-top:2px solid var(--line);padding-top:18px;position:relative}
+.step::before{counter-increment:s;content:"Etapa " counter(s);font:500 .74rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cyan)}
+.step:first-child{border-top-color:var(--blue)}
+.step p{color:var(--fg-2);font-size:.95rem}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* perguntas */
+.faq{display:grid;gap:0;border-top:1px solid var(--line);max-width:860px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 0;font-family:var(--f-display);font-weight:600;font-size:1.2rem;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--f-mono);color:var(--cyan)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{color:var(--fg-2);padding:0 0 20px;max-width:70ch}
+
+/* contato */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.channels{display:grid;gap:12px;margin-top:26px}
+.ch{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg)}
+.ch .ic{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:var(--panel);color:var(--cyan)}
+.ch .ic svg{width:22px;height:22px}
+.ch small{display:block;color:var(--fg-3);font-size:.8rem}
+.ch .v{font-weight:600;word-break:break-all;user-select:all}
+.copy{font:600 .82rem var(--f-body);background:transparent;color:var(--fg-2);border:1px solid var(--line);border-radius:8px;padding:7px 11px;cursor:pointer}
+.copy:hover{color:var(--fg)}
+form.msg{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:14px}
+form.msg label{display:grid;gap:6px;font-size:.88rem;color:var(--fg-2);font-weight:500}
+form.msg input,form.msg select,form.msg textarea{font:inherit;font-size:1rem;color:var(--fg);background:var(--bg-2);border:1px solid var(--line);border-radius:9px;padding:11px 12px;width:100%}
+form.msg textarea{min-height:96px;resize:vertical}
+form.msg .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form.msg .hint{font-size:.82rem;color:var(--fg-3)}
+form.msg .err{color:#FCA5A5;font-size:.88rem}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+@media (max-width:480px){form.msg .row{grid-template-columns:1fr}.ch{grid-template-columns:44px 1fr}.ch .copy{grid-column:2;justify-self:start}}
+
+footer{border-top:1px solid var(--line);padding-block:30px;color:var(--fg-3);font-size:.88rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between}
+.wa-float{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#22C55E;color:#fff;box-shadow:0 14px 30px -10px rgba(0,0,0,.6)}
+.wa-float svg{width:28px;height:28px}
+</style>
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ic-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="ic-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.3-.6-.5-1-1.1-1.4-1.8-.1-.2 0-.4.1-.5l.4-.4.3-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></symbol>
+    <symbol id="ic-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></g></symbol>
+    <symbol id="ic-sign" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c2-4 3.5-6 4.5-6s.5 4 2 4 2.5-5 4-5 1 3 2.5 3 2-1 3-2"/><path d="M3 21h18"/></g></symbol>
+    <symbol id="ic-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9"/></g></symbol>
+    <symbol id="ic-cam" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></g></symbol>
+    <symbol id="ic-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></g></symbol>
+    <symbol id="ic-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g></symbol>
+    <symbol id="ic-tool" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M14.5 6.5a4 4 0 0 0 5 5L21 13l-8 8-3-3 8-8-1.5-1.5zM3 21l6-6"/></symbol>
+    <symbol id="ic-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.3-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.8.7 3 2.5 3.5 5.2"/></g></symbol>
+    <symbol id="ic-plug" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M9 3v5M15 3v5M6 8h12v3a6 6 0 0 1-12 0zM12 17v4"/></g></symbol>
+    <symbol id="ic-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></g></symbol>
+    <symbol id="ic-key" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l2 2M15 8l2 2"/></g></symbol>
+    <symbol id="ic-eye" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></g></symbol>
+    <symbol id="ic-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Dev Tecnologia, página inicial"><span class="mark">&lt;/&gt;</span><span>Dev Tecnologia<small>Sistemas para indústria</small></span></a>
+    <nav class="links" aria-label="Seções">
+      <a href="#safeguard">Telas</a>
+      <a href="#seguranca">Segurança</a>
+      <a href="#implantacao">Implantação</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-main" href="#contato"><svg class="i"><use href="#ic-wa"/></svg><span>Pedir demonstração</span></a>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">SafeGuard · Controle de EPI e almoxarifado</div>
+      <h1>A ficha de EPI <span class="grad">assinada no celular</span>, não na prancheta.</h1>
+      <p class="lead">O SafeGuard registra cada entrega, troca e devolução de EPI com a assinatura do funcionário, avisa quem está com equipamento vencido e mantém o estoque do almoxarifado em dia. Tudo no navegador, do computador ou do celular.</p>
+      <div class="ctas">
+        <a class="btn btn-main" href="#contato"><svg class="i"><use href="#ic-wa"/></svg>Pedir uma demonstração</a>
+        <a class="btn btn-ghost" href="#safeguard">Ver as telas do sistema</a>
+      </div>
+      <div class="facts">
+        <span><svg class="i"><use href="#ic-check"/></svg>Ficha no padrão da NR-6</span>
+        <span><svg class="i"><use href="#ic-check"/></svg>Sem instalar nada</span>
+        <span><svg class="i"><use href="#ic-check"/></svg>Com a marca da sua empresa</span>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><b>Painel do almoxarifado</b></div><img src="img/painel.webp" alt="Painel do SafeGuard com funcionários com EPI, entregas no mês, EPIs fora do prazo e gráfico de entregas por mês" width="1100" height="1111"></div>
+      <div class="phone"><img src="img/celular-assinatura.webp" alt="Tela de assinatura do recebimento do EPI no celular" width="390" height="844"></div>
+      <div class="stamp"><b>JT3F-R9XE-ZS</b><span>código que comprova a assinatura</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="safeguard">
+  <div class="wrap">
+    <div class="head">
+      <div class="product-id">
+        <svg class="shield" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="gs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs><path d="M24 3l17 6v13c0 11-7.3 19.3-17 23C14.3 41.3 7 33 7 22V9z" fill="url(#gs)"/><path d="M16 24l6 6 11-12" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="eyebrow">Produto</div>
+      </div>
+      <h2>SafeGuard</h2>
+      <p class="lead">Feito junto com quem trabalha no almoxarifado. Cada tela resolve uma tarefa do dia: entregar, trocar, conferir, prestar contas.</p>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Telas do SafeGuard">
+      <button role="tab" id="t-painel" aria-selected="true" data-k="painel">Painel</button>
+      <button role="tab" id="t-entrega" aria-selected="false" data-k="entrega">Entrega de EPI</button>
+      <button role="tab" id="t-ficha" aria-selected="false" data-k="ficha">Ficha NR-6</button>
+      <button role="tab" id="t-troca" aria-selected="false" data-k="troca">Troca com foto</button>
+      <button role="tab" id="t-consumo" aria-selected="false" data-k="consumo">Consumo fora do padrão</button>
+    </div>
+    <div class="viewer" role="tabpanel" aria-live="polite">
+      <div class="frame"><div class="bar"><i></i><i></i><i></i><b id="v-bar">Painel do almoxarifado</b></div><img id="v-img" src="img/painel.webp" alt=""></div>
+      <div class="cap">
+        <h3 id="v-title"></h3>
+        <p id="v-text"></p>
+        <ul id="v-list"></ul>
+      </div>
+    </div>
+
+    <div class="feats">
+      <div class="feat"><svg><use href="#ic-sign"/></svg><h3>Ficha de EPI digital</h3><p>O funcionário assina com o dedo no celular ou tablet. A ficha sai pronta para imprimir ou baixar em PDF, com termo de responsabilidade e número do C.A.</p></div>
+      <div class="feat"><svg><use href="#ic-clock"/></svg><h3>Prazo de troca</h3><p>O sistema calcula quando cada EPI vence e mostra quem está fora do prazo, por contrato e por equipamento. C.A. perto de vencer também aparece no painel.</p></div>
+      <div class="feat"><svg><use href="#ic-cam"/></svg><h3>Troca com foto</h3><p>O pedido de troca leva a foto do EPI danificado, tirada pela webcam ou pelo celular com um QR code. O equipamento velho já sai do sistema com o motivo.</p></div>
+      <div class="feat"><svg><use href="#ic-chart"/></svg><h3>Consumo e custo</h3><p>Mostra quem pegou mais que a média dos colegas do mesmo contrato, quanto isso custou e qual foi a justificativa dada na entrega.</p></div>
+      <div class="feat"><svg><use href="#ic-box"/></svg><h3>Almoxarifado completo</h3><p>Materiais, suprimentos, inventário, transferências, descartes, perdas, empréstimo de ferramentas e EPC no mesmo lugar.</p></div>
+      <div class="feat"><svg><use href="#ic-plug"/></svg><h3>Integração</h3><p>Recebe funcionários do sistema de RH por integração documentada, e exporta relatórios em PDF e Excel.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="seguranca">
+  <div class="wrap sec">
+    <div>
+      <div class="head">
+        <div class="eyebrow">Segurança</div>
+        <h2>Cada assinatura tem prova. Cada ação tem dono.</h2>
+        <p class="lead">Em uma fiscalização ou ação trabalhista, a empresa precisa mostrar que entregou o EPI. O SafeGuard guarda essa prova.</p>
+      </div>
+      <div class="sec-list">
+        <div class="sec-item"><svg><use href="#ic-sign"/></svg><div><h3>Assinatura com código de verificação</h3><p>Cada assinatura recebe data, hora e um código único, impresso na ficha ao lado da rubrica.</p></div></div>
+        <div class="sec-item"><svg><use href="#ic-users"/></svg><div><h3>Perfis por função</h3><p>Almoxarife, técnico de segurança, gestor: cada perfil só vê e faz o que a função permite.</p></div></div>
+        <div class="sec-item"><svg><use href="#ic-eye"/></svg><div><h3>Auditoria completa</h3><p>Quem entregou, quem aprovou, quem alterou um cadastro e quando. Tudo registrado e consultável.</p></div></div>
+        <div class="sec-item"><svg><use href="#ic-lock"/></svg><div><h3>Acesso protegido</h3><p>Senhas guardadas com criptografia, troca obrigatória no primeiro acesso e conexão segura.</p></div></div>
+      </div>
+    </div>
+    <div class="proof" aria-label="Exemplo de registro de assinatura">
+      <div class="t">Registro de assinatura · exemplo</div>
+      <table>
+        <tr><td>Funcionário</td><td>João Silva · OP001</td></tr>
+        <tr><td>EPI</td><td>Capacete de segurança · C.A. 12345</td></tr>
+        <tr><td>Entregue em</td><td>22/10/2026 às 09:14</td></tr>
+        <tr><td>Entregue por</td><td>Almoxarife (rubrica cadastrada)</td></tr>
+        <tr><td>Assinatura</td><td><svg class="sig" viewBox="0 0 200 46" aria-hidden="true"><path d="M4 34c10-18 16-26 22-26s2 22 10 22 12-24 20-24 4 18 12 18 10-14 18-14 6 10 14 10 12-8 20-8" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/></svg></td></tr>
+        <tr><td>Código</td><td><code>JT3F-R9XE-ZS</code></td></tr>
+      </table>
+      <div class="ok"><svg class="i"><use href="#ic-check"/></svg>Assinatura conferida</div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="implantacao">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Implantação</div>
+      <h2>Do primeiro contato à equipe usando</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Demonstração</h3><p>Mostramos o sistema funcionando, com exemplos parecidos com a sua operação.</p></div>
+      <div class="step"><h3>Configuração</h3><p>Sua logo, seus contratos, EPIs, perfis de acesso e o cadastro dos funcionários.</p></div>
+      <div class="step"><h3>Treinamento</h3><p>Almoxarifes e técnicos aprendem no próprio sistema, com as tarefas do dia a dia.</p></div>
+      <div class="step"><h3>Acompanhamento</h3><p>Suporte direto pelo WhatsApp e ajustes conforme a equipe pede.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="perguntas">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">Perguntas frequentes</div><h2>Antes de pedir a demonstração</h2></div>
+    <div class="faq">
+      <details><summary>Precisa instalar algum programa?</summary><p>Não. O SafeGuard abre no navegador do computador, do tablet ou do celular. Basta um endereço e o usuário de cada pessoa.</p></details>
+      <details><summary>A ficha digital vale como a ficha de papel?</summary><p>A ficha segue os campos da NR-6: dados do funcionário, termo de responsabilidade, EPI, C.A., quantidade, data e assinatura. Cada assinatura tem data, hora e código de verificação, e a ficha pode ser impressa a qualquer momento.</p></details>
+      <details><summary>Dá para colocar a marca da minha empresa?</summary><p>Sim. A logo e os dados da empresa aparecem no sistema e no cabeçalho da ficha de EPI.</p></details>
+      <details><summary>Funciona para mais de um contrato ou unidade?</summary><p>Sim. Funcionários, entregas e relatórios são separados por contrato e área, e cada gestor vê o que é dele.</p></details>
+      <details><summary>Já temos os funcionários em outro sistema. Precisa cadastrar de novo?</summary><p>Não. O cadastro pode vir direto do seu sistema de RH por integração.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="contato">
+  <div class="wrap contact">
+    <div>
+      <div class="head" style="margin-bottom:0">
+        <div class="eyebrow">Contato</div>
+        <h2>Peça uma demonstração</h2>
+        <p class="lead">Conte um pouco da sua operação. Respondemos pelo WhatsApp ou por e-mail.</p>
+      </div>
+      <div class="channels">
+        <div class="ch"><div class="ic"><svg><use href="#ic-wa"/></svg></div><div><small>WhatsApp</small><span class="v" id="v-wa">(27) 99311-3607</span></div><button class="copy" type="button" data-copy="v-wa">Copiar</button></div>
+        <div class="ch"><div class="ic"><svg><use href="#ic-mail"/></svg></div><div><small>E-mail</small><span class="v" id="v-mail">devtecnologia6@gmail.com</span></div><button class="copy" type="button" data-copy="v-mail">Copiar</button></div>
+      </div>
+    </div>
+    <form class="msg" id="f" novalidate>
+      <div class="row">
+        <label for="f-nome">Seu nome<input id="f-nome" autocomplete="name" required></label>
+        <label for="f-empresa">Empresa<input id="f-empresa" autocomplete="organization"></label>
+      </div>
+      <label for="f-assunto">Interesse
+        <select id="f-assunto">
+          <option>Demonstração do SafeGuard</option>
+          <option>Sistema sob medida</option>
+          <option>Outro assunto</option>
+        </select>
+      </label>
+      <label for="f-texto">Mensagem<textarea id="f-texto" placeholder="Ex.: somos 300 funcionários em 4 contratos e hoje a ficha de EPI é em papel."></textarea></label>
+      <p class="err" id="f-err" hidden>Escreva o seu nome para continuarmos.</p>
+      <button class="btn btn-main" type="submit"><svg class="i"><use href="#ic-wa"/></svg>Enviar pelo WhatsApp</button>
+      <p class="hint">O WhatsApp abre com a mensagem pronta. É só tocar em enviar.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="../"><span class="mark">&lt;/&gt;</span><span>Dev Tecnologia</span></a>
+    <span>SafeGuard · controle de EPI, estoque e almoxarifado</span>
+    <span>Conheça também: <a href="../zuno/">Zuno, atendimento com IA no WhatsApp</a> · <a href="../#sob-medida">Sistemas sob medida</a></span>
+    <span>© 2026 Dev Tecnologia</span>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5527993113607?text=Ol%C3%A1%2C%20vi%20o%20site%20e%20quero%20conhecer%20o%20SafeGuard." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg><use href="#ic-wa"/></svg></a>
+
+<script>
+(function(){
+  var IMG = {painel:"img/painel.webp",entrega:"img/entrega.webp",ficha:"img/ficha.webp",troca:"img/troca.webp",consumo:"img/consumo.webp"};
+  var V = {
+    painel:{bar:"Painel do almoxarifado",t:"Tudo o que precisa de atenção, na primeira tela",p:"O almoxarife abre o sistema e já vê o que fazer: quem está com EPI vencido, entregas sem assinatura, pedidos de troca esperando e material abaixo do mínimo.",l:["Entregas do mês comparadas com o mês anterior","EPIs mais entregues e custo por contrato","Material para repor com um clique em Dar entrada"]},
+    entrega:{bar:"Entregar EPI",t:"Vários EPIs, uma assinatura",p:"Busque o funcionário pelo nome, matrícula ou crachá, junte os EPIs do kit e colha uma assinatura só.",l:["Avisa quando é troca antes do prazo e pede o motivo","Dá baixa no EPI antigo na mesma hora","Mostra o que o funcionário já tem em uso"]},
+    ficha:{bar:"Ficha de entrega de EPI",t:"A ficha NR-6, preenchida sozinha",p:"Cada entrega entra na ficha do funcionário com a assinatura e o código de verificação. A devolução leva a rubrica do almoxarife automaticamente.",l:["Cabeçalho com a logo da sua empresa","Termo de responsabilidade e número do C.A.","Imprimir, baixar em PDF ou gerar em branco"]},
+    troca:{bar:"Pedir troca de EPI",t:"Troca justificada, com foto",p:"O técnico pede a troca, escolhe o motivo e fotografa o EPI danificado. O almoxarifado aprova e entrega o novo.",l:["Foto pela webcam ou pelo celular com QR code","Motivos padronizados: dano, desgaste, tamanho, perda","O EPI velho vai para o relatório de perdas"]},
+    consumo:{bar:"Consumo fora do padrão",t:"Quem pega EPI demais, e por quê",p:"Compara cada funcionário com a média dos colegas do mesmo contrato e mostra o custo do que passou da média.",l:["Filtro por período e contrato","Justificativa obrigatória acima do padrão","Exporta para Excel"]}
+  };
+  var img=document.getElementById('v-img'), bar=document.getElementById('v-bar'), tt=document.getElementById('v-title'), tx=document.getElementById('v-text'), ul=document.getElementById('v-list');
+  var ck='<svg class="i"><use href="#ic-check"/></svg>';
+  function show(k){
+    var v=V[k]; if(!v) return;
+    img.src=IMG[k]; img.alt='Tela do SafeGuard: '+v.bar; bar.textContent=v.bar; tt.textContent=v.t; tx.textContent=v.p;
+    ul.innerHTML=v.l.map(function(s){return '<li>'+ck+'<span></span></li>';}).join('');
+    [].forEach.call(ul.querySelectorAll('li span'),function(s,i){s.textContent=v.l[i];});
+    img.parentNode.scrollTop=0;
+    [].forEach.call(document.querySelectorAll('.tabs button'),function(b){b.setAttribute('aria-selected',b.dataset.k===k?'true':'false');});
+  }
+  [].forEach.call(document.querySelectorAll('.tabs button'),function(b){b.addEventListener('click',function(){show(b.dataset.k);});});
+  show('painel');
+
+  [].forEach.call(document.querySelectorAll('.copy'),function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById(b.dataset.copy), t=el.textContent;
+      function done(){b.textContent='Copiado';setTimeout(function(){b.textContent='Copiar';},1600);}
+      function sel(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selecionado';setTimeout(function(){b.textContent='Copiar';},1600);}
+      try{navigator.clipboard.writeText(t).then(done,sel);}catch(e){sel();}
+    });
+  });
+
+  var f=document.getElementById('f');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var nome=document.getElementById('f-nome').value.trim(), err=document.getElementById('f-err');
+    if(!nome){err.hidden=false;document.getElementById('f-nome').focus();return;}
+    err.hidden=true;
+    var emp=document.getElementById('f-empresa').value.trim(), a=document.getElementById('f-assunto').value, m=document.getElementById('f-texto').value.trim();
+    var txt='Olá! Sou '+nome+(emp?' da '+emp:'')+'. Interesse: '+a+'.'+(m?'\n'+m:'');
+    var link=document.createElement('a'); link.href='https://wa.me/5527993113607?text='+encodeURIComponent(txt); link.target='_blank'; link.rel='noopener';
+    document.body.appendChild(link); link.click(); link.remove();
+  });
+})();
+</script>
+
+</body>
+</html>
