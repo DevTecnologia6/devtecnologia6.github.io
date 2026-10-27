@@ -27,7 +27,7 @@
   --wrap:1160px;
   color-scheme:dark;
 }
-*{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}
+*{box-sizing:border-box}img{max-width:100%;height:auto}[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -180,6 +180,57 @@ footer{border-top:1px solid var(--line);padding-block:30px;color:var(--fg-3);fon
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between}
 .wa-float{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#22C55E;color:#fff;box-shadow:0 14px 30px -10px rgba(0,0,0,.6)}
 .wa-float svg{width:28px;height:28px}
+
+/* celular: tudo mais compacto */
+@media (max-width:600px){
+  .hero .ctas{display:grid;grid-template-columns:1fr;gap:10px}
+  .ctas .btn{width:100%}
+  h3{line-height:1.2}
+  .ch{grid-template-columns:40px 1fr auto;gap:12px}
+  .ch .ic{width:40px;height:40px}
+  .ch .copy{grid-column:auto;justify-self:end;padding:6px 9px}
+  .stage .frame{max-height:270px;overflow:hidden}
+  .stage .phone{width:30%;right:4px}
+  .stamp{font-size:.75rem;padding:8px 10px;left:6px;bottom:4px}
+  .feats{grid-template-columns:1fr 1fr}
+  .feat{padding:16px;gap:6px}
+  .feat p{font-size:.85rem}
+  body{font-size:15px}
+  section.band,section.zuno{padding-block:52px}
+  .head{margin-bottom:26px;gap:10px}
+  h2{font-size:1.9rem}
+  h3{font-size:1.12rem}
+  .lead{font-size:1rem}
+  .eyebrow{font-size:.72rem}
+  .ctas{display:grid;grid-template-columns:1fr;gap:10px;margin-top:24px}
+  .ctas .btn{justify-content:center}
+  .faq summary{font-size:1.05rem;padding:16px 0}
+  .contact{gap:28px}
+  .channels{margin-top:20px}
+  .ch{padding:12px}
+  form.msg{padding:18px}
+  footer .wrap{flex-direction:column;align-items:flex-start;gap:10px}
+  .wa-float{width:50px;height:50px}
+  .wa-float svg{width:25px;height:25px}
+  .hero{padding-block:32px 20px}
+  .hero h1{font-size:2.3rem;margin-top:12px}
+  .hero .facts{margin-top:22px;gap:6px 16px;font-size:.88rem}
+  .stage{margin-top:8px}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:none}
+  .viewer{gap:18px}
+  .viewer .frame{max-height:360px}
+  .viewer .cap h3{font-size:1.3rem}
+  .feats{margin-top:36px}
+  .feat{padding:18px}
+  .sec{gap:28px}
+  .sec-item{padding:14px 0}
+  .proof{padding:16px;font-size:.85rem}
+  .steps{grid-template-columns:1fr 1fr;gap:20px 16px}
+  .step{padding-top:12px;gap:4px}
+  .step p{font-size:.88rem}
+}
 </style>
 </head>
 <body>
